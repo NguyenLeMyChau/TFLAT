@@ -21,7 +21,6 @@ const Main = () => {
       text: "Hiển thị từ vựng trên màn hình khoá",
       image: require("/assets/lock.png"),
       handle: () => {
-        // Xử lý khi bấm vào mục này
         console.log("Bấm vào mục 1");
       },
     },
@@ -30,7 +29,6 @@ const Main = () => {
       text: "Từ đã tra",
       image: require("/assets/history.png"),
       handle: () => {
-        // Xử lý khi bấm vào mục này
         console.log("Bấm vào mục 2");
       },
     },
@@ -81,7 +79,7 @@ const Main = () => {
     },
     {
       id: 11,
-      text: "Gói từ vựng miễn phí",
+      text: "Gói từ miễn phí",
       image: require("/assets/bars.png"),
     },
     {
@@ -124,8 +122,13 @@ const Main = () => {
           key={subItem.id}
           style={[
             styles.item,
-            subItem.id === 4 || subItem.id === 3 ? styles.shortRow : null,
-            subItem.id === 11 ? styles.package : null,
+            subItem.id === 4
+              ? styles.shortRow
+              : subItem.id === 3
+              ? styles.shortRow1
+              : subItem.id === 11
+              ? styles.row2
+              : null,
           ]}
           onPress={subItem.handle}
         >
@@ -138,28 +141,38 @@ const Main = () => {
           >
             {subItem.text}
           </Text>{" "}
-          {/* {subItem.id === 11 ? (
-            <View style={styles.additionalTextContainer}>
-              <Text style={styles.additionalText}></Text>
-              <Text style={[styles.additionalText, { marginLeft:-20 }]}>
-                <Text style={{fontWeight:'bold'}}>Động từ bất quy tắc</Text>
-                {"\n"}Hoàn thành 0 %
-              </Text>{" "}
-              <Text style={styles.additionalText}>
-                <Text style={{fontWeight:'bold'}}>Từ Vựng TOEIC</Text>
-                {"\n"}Hoàn thành 0 %
-              </Text>{" "}  <Text style={styles.additionalText}>
-                <Text style={{fontWeight:'bold'}}>Từ Vựng IELTS</Text>
-                {"\n"}Hoàn thành 0 %
-              </Text>{" "}  <Text style={styles.additionalText}>
-                <Text style={{fontWeight:'bold'}}>Từ Vựng TOEFL</Text>
-                {"\n"}Hoàn thành 0 %
-              </Text>{" "}
-              <Text style={styles.additionalText}>
-                <Text style={{fontWeight:'bold'}}>300 Từ vựng Oxford</Text>
-                {"\n"}Hoàn thành 0 %
-              </Text>{" "}            </View>
-          ) : null} */}
+          {subItem.id === 11 && (
+            <View style={{ flexDirection: "column", marginTop: 40 }}>
+              <View style={{ flex: 1, marginLeft: -170 }}>
+                <Text style={{ fontSize: 13, fontWeight: "bold", width: 180 }}>
+                  Động từ bất quy tắc
+                </Text>
+                <Text>Hoàn thành 0%</Text>
+                <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+                  Từ vựng TOEFL
+                </Text>
+
+                <Text>Hoàn thành 0%</Text>
+                <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+                  300 từ vựng Oxford
+                </Text>
+
+                <Text>Hoàn thành 0%</Text>
+              </View>
+              <View style={{ marginTop: -110, marginLeft: 30 }}>
+                <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+                  Từ vựng TOEIC
+                </Text>
+
+                <Text>Hoàn thành 0%</Text>
+                <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+                  Từ vựng IELTS
+                </Text>
+
+                <Text>Hoàn thành 0%</Text>
+              </View>
+            </View>
+          )}
         </TouchableOpacity>
       ))}
     </View>
@@ -305,21 +318,32 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     top: 0,
-    zIndex: 1 /* Để phần search hiển thị trên các phần khác */,
+    zIndex: 1,
   },
   row: {
     flexDirection: "row",
     marginTop: 10,
-    backgroundColor: "white",
     minHeight: 40,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
+    width: "95%",
   },
   item: {
-    width: 350,
+    width: 300,
     height: 40,
     alignItems: "center",
     flexDirection: "row",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
+    backgroundColor: "white",
+    width: "100%",
+    paddingHorizontal: 10,
+  },
+  row2: {
+    width: "100%",
+    paddingRight: 10,
+    height: 180,
+    alignItems: "flex-start",
+    paddingVertical: 15,
+    
   },
   itemText: {
     fontFamily: "Roboto",
@@ -329,10 +353,20 @@ const styles = StyleSheet.create({
     fontWeight: 400,
   },
   shortRow: {
-    width: 150,
+    width: 180,
+    paddingRight: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
-
- 
+  shortRow1: {
+    width: 180,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    height: 40,
+    alignItems: "center",
+    flexDirection: "row",
+    paddingRight: 10
+  },
 });
 
 export default Main;
